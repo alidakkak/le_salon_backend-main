@@ -24,7 +24,7 @@ class StoretablesRequest extends FormRequest
     {
         return [
             'table_number' => 'numeric|required',
-//            'floor_id' => ['required', Rule::exists('floors', 'id')],
+            'floor_id' => ['required', Rule::exists('floors', 'id')],
         ];
     }
 }

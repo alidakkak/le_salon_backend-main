@@ -23,6 +23,7 @@ class UpdateCategoryRequest extends FormRequest
     {
         return [
             'name' => 'string',
+            'name_ar' => 'string',
             'image' => 'image|mimes:jpeg,png,jpg',
         ];
     }

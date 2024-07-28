@@ -24,7 +24,7 @@ class UpdatetablesRequest extends FormRequest
     {
         return [
             'table_number' => 'numeric',
-//            'floor_id' => [Rule::exists('floors', 'id')],
+            'floor_id' => [Rule::exists('floors', 'id')],
         ];
     }
 }

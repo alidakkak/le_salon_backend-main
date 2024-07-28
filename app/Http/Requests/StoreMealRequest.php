@@ -24,7 +24,9 @@ class StoreMealRequest extends FormRequest
     {
         return [
             'name' => 'required|string',
+            'name_ar' => 'required|string',
             'description' => 'required|string',
+            'description_ar' => 'required|string',
             'image' => 'required|image|mimes:jpeg,png,jpg',
             'category_id' => ['required', Rule::exists('categories', 'id')],
             'price' => 'required|numeric',

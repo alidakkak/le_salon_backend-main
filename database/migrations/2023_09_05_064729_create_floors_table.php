@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('floors', function (Blueprint $table) {
             $table->id();
             $table->string('floor_name');
+            $table->string('floor_name_ar');
             $table->timestamps();
         });
     }

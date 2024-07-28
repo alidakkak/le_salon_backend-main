@@ -23,6 +23,7 @@ class StoreFloorRequest extends FormRequest
     {
         return [
             'floor_name' => 'required|string',
+            'floor_name_ar' => 'required|string',
         ];
     }
 }

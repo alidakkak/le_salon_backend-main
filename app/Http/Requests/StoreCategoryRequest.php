@@ -23,6 +23,7 @@ class StoreCategoryRequest extends FormRequest
     {
         return [
             'name' => 'required|string',
+            'name_ar' => 'required|string',
             'image' => 'required|image|mimes:jpeg,png,jpg',
         ];
     }

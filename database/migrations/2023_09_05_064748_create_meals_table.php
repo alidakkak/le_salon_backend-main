@@ -14,7 +14,9 @@ return new class extends Migration
         Schema::create('meals', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('name_ar');
             $table->string('description');
+            $table->string('description_ar');
             $table->string('image');
             $table->double('price');
             $table->boolean('visible')->default(true);

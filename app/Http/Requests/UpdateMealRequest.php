@@ -24,7 +24,9 @@ class UpdateMealRequest extends FormRequest
     {
         return [
             'name' => 'string',
+            'name_ar' => 'string',
             'description' => 'string',
+            'description_ar' => 'string',
             'image' => 'image|mimes:jpeg,png,jpg',
             'category_id' => [Rule::exists('categories', 'id')],
             'price' => 'numeric',
