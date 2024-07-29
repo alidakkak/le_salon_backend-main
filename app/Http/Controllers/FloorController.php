@@ -35,14 +35,6 @@ class FloorController extends Controller
      */
     public function store(StoreFloorRequest $request)
     {
-        if ($this->isExtraFoundInBody(['floor_name'])) {
-            return $this->ExtraResponse();
-        }
-        if ($this->isParamsFoundInRequest()) {
-            return $this->CheckerResponse();
-        }
-        $request->validated();
-
         $floor = Floor::create($request->all());
 
         return FloorResource::make($floor);

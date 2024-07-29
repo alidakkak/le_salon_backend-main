@@ -8,4 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Optional extends Model
 {
     use HasFactory;
+
+    protected $guarded = ['id'];
+
+    public function meal()
+    {
+        return $this->belongsTo(Meal::class);
+    }
 }

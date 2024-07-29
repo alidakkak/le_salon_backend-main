@@ -35,12 +35,6 @@ class CategoryController extends Controller
      */
     public function store(StoreCategoryRequest $request)
     {
-        if ($this->isExtraFoundInBody(['name', 'image'])) {
-            return $this->ExtraResponse();
-        }
-        if ($this->isParamsFoundInRequest()) {
-            return $this->CheckerResponse();
-        }
         $request->validated();
 
         $meal = Category::create($request->all());

@@ -18,4 +18,9 @@ class Meal extends Model
 
         return $this->attributes['image'] = '/'.'images_meals'.'/'.$newImageName;
     }
+
+    public function optionals()
+    {
+        return $this->hasMany(Optional::class);
+    }
 }

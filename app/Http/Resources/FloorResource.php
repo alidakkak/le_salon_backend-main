@@ -14,6 +14,11 @@ class FloorResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        return parent::toArray($request);
+        return [
+            'id' => $this->id,
+            'floor_name' => $this->floor_name,
+            'floor_name_ar' => $this->floor_name_ar,
+            'tables' => TableResource::collection($this->tables)
+        ];
     }
 }

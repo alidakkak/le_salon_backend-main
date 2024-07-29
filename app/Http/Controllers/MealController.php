@@ -6,6 +6,7 @@ use App\Http\Requests\StoreMealRequest;
 use App\Http\Requests\UpdateMealRequest;
 use App\Http\Resources\MealResource;
 use App\HttpResponse\CustomResponse;
+use App\Models\Category;
 use App\Models\Meal;
 use App\SecurityChecker\Checker;
 
@@ -19,17 +20,16 @@ class MealController extends Controller
      */
     public function index()
     {
-        //        if ($this->isExtraFoundInBody([])){
-        //            return $this->ExtraResponse();
-        if (request('state') == 1) {
             $meals = Meal::all();
 
             return MealResource::collection($meals);
-        }
+    }
 
-        $meals = Meal::where('visible', true)->get();
+    public function getMealByCategory($category)
+    {
+        $meal = Meal::where('category_id', $category)->get();
 
-        return MealResource::collection($meals);
+        return MealResource::collection($meal);
     }
 
     public function topMeals()
@@ -42,56 +42,23 @@ class MealController extends Controller
     /**
      * Store a newly created resource in storage.
      */
+
     public function store(StoreMealRequest $request)
     {
-        $request->validated($request->all());
-        $maxPositionInCategory = Meal::where('category_id', $request->category_id)->max('position');
-        if (! $maxPositionInCategory) {
-            $product = Meal::create(array_merge($request->all(), ['position' => 1]));
+        try {
+            $meal = Meal::create($request->all());
 
-            return MealResource::make($product);
-        }
-        if (! $request->position) {
-            $product = Meal::create(array_merge($request->all(), ['position' => $maxPositionInCategory + 1]));
-
-            return MealResource::make($product);
-        } else {
-            if ($request->position == $maxPositionInCategory + 1) {
-                $product = Meal::create($request->all());
-
-                return MealResource::make($product);
-            }
-
-            if ($request->position > $maxPositionInCategory + 1) {
-                $product = Meal::create(array_merge($request->all(), ['position' => $maxPositionInCategory + 1]));
-
-                return MealResource::make($product);
-            }
-
-            if ($request->position == $maxPositionInCategory) {
-                $maxProduct = Meal::where('position', $maxPositionInCategory)->first();
-                $product = Meal::create(array_merge($request->all(), ['position' => $maxPositionInCategory]));
-                $maxProduct->update([
-                    'position' => $maxPositionInCategory + 1,
-                ]);
-
-                return MealResource::make($product);
-            }
-
-            if ($request->position < $maxPositionInCategory) {
-                $shouldShiftProducts = Meal::where('position', '>=', $request->position)->get();
-                foreach ($shouldShiftProducts as $shouldShiftProduct) {
-                    $shouldShiftProduct->update([
-                        'position' => $shouldShiftProduct['position'] + 1,
-                    ]);
-                }
-                $product = Meal::create($request->all());
-
-                return MealResource::make($product);
-            }
+            return response()->json([
+                'message' => 'Created SuccessFully',
+                'data' => MealResource::make($meal),
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => 'An error occurred',
+                'error' => $e->getMessage(),
+            ], 500);
         }
     }
-
     /**
      * Display the specified resource.
      */
