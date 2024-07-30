@@ -5,14 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Table extends Model
+class OrderitemOptional extends Model
 {
     use HasFactory;
 
+    protected $table = "orderitem_optionals";
+
     protected $guarded = ['id'];
 
-    public function floor()
-    {
-        return $this->belongsTo(Floor::class, 'floor_id');
-    }
 }

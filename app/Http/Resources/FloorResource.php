@@ -16,8 +16,12 @@ class FloorResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'floor_name' => $this->floor_name,
-            'floor_name_ar' => $this->floor_name_ar,
+            'name' => [
+                'ar' => $this->floor_name,
+                'en' => $this->floor_name_ar,
+            ],
+//            'floor_name' => $this->floor_name,
+//            'floor_name_ar' => $this->floor_name_ar,
             'tables' => TableResource::collection($this->tables)
         ];
     }

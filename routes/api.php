@@ -37,12 +37,12 @@ Route::get('/tables/{table}', [TableController::class, 'show']);
 Route::get('/users', [UserController::class, 'index']);
 Route::get('/users/{user}', [UserController::class, 'show']);
 Route::get('/getMealByCategoryId/{id}', [MealController::class, 'getMealByCategory']);
+Route::post('/orders', [OrderController::class, 'store']);
 
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/statistics', [StatisticsController::class, 'index']);
     Route::get('/orders/{order}', [OrderController::class, 'show']);
     Route::get('/orders', [OrderController::class, 'index']);
-    Route::post('/orders', [OrderController::class, 'store']);
     Route::patch('/order-to-runner/{order}', [OrderController::class, 'moveToRunner']);
     Route::patch('/order-to-casher/{order}', [OrderController::class, 'moveToCasher']);
     Route::delete('/orders/{order}', [OrderController::class, 'destroy']);

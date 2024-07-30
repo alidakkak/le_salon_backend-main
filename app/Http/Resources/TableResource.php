@@ -14,6 +14,13 @@ class TableResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        return parent::toArray($request);
+        return [
+            'id' => $this->id,
+            'table_number' => $this->table_number,
+            'floor_name' => [
+                'ar' => $this->floor->floor_name_ar,
+                'en' => $this->floor->floor_name
+            ]
+        ];
     }
 }

@@ -23,10 +23,10 @@ class StoreOrderRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'table_id' => ['required', Rule::exists('tables', 'id')],
+            'table_id' => 'required|exists:tables,id',
             'order_items' => 'required|array',
-            'order_items.*.meal_id' => ['required', Rule::exists('meals', 'id')],
-            'order_items.*.quantity' => ['required', 'numeric'],
+            'order_items.*.meal_id' => 'required||exists:meals,id',
+            'order_items.*.quantity' => 'required|numeric',
         ];
     }
 }

@@ -16,8 +16,10 @@ class OptionResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'name' => $this->name,
-            'name_ar' => $this->name_ar,
+            'name' => [
+                'ar' => $this->name_ar,
+                'en' => $this->name
+            ],
         ];
     }
 }

@@ -11,6 +11,7 @@ use App\Models\Meal;
 use App\Models\Notification;
 use App\Models\Order;
 use App\Models\OrderItem;
+use App\Models\OrderitemOptional;
 use App\Models\Table;
 use App\SecurityChecker\Checker;
 use App\Types\NotificationType;
@@ -79,39 +80,43 @@ class OrderController extends Controller
 
     public function store(StoreOrderRequest $request)
     {
-        if ($this->isExtraFoundInBody(['table_id', 'order_items'])) {
-            return $this->ExtraResponse();
-        }
-        if ($this->isParamsFoundInRequest()) {
-            return $this->CheckerResponse();
-        }
-        $request->validated($request->all());
-
         $order = Order::create([
             'table_id' => $request->table_id,
         ]);
-
         $table = Table::where('id', $request->table_id)->first();
-        $totalItem = 0;
+
+        $totalOrderPrice = 0;
+
         foreach ($request->order_items as $order_item) {
             $meal = Meal::where('id', $order_item['meal_id'])->first();
-            // calc total price of this order ite,
+
             $totalItem = $order_item['quantity'] * $meal->price;
+
             $orderItemData = array_merge($order_item, ['order_id' => $order->id, 'total' => $totalItem]);
             $orderItem = OrderItem::create($orderItemData);
-            // update total price of sub order
-            $order->update([
-                'total' => $order->total + $totalItem,
-            ]);
+
+            foreach ($order_item['optionalIngredient'] as $ingredient) {
+                OrderitemOptional::create([
+                    'order_item_id' => $orderItem->id,
+                    'optional_id' => $ingredient,
+                ]);
+            }
+
+            $totalOrderPrice += $totalItem;
         }
+
+        $order->update([
+            'total' => $totalOrderPrice,
+        ]);
+
         $notification = Notification::create([
-            'notification' => 'new order added for table number '.$table->table_number,
+            'notification' => 'New order added for table number ' . $table->table_number,
             'type' => NotificationType::NEWORDER,
             'order_id' => $order->id,
         ]);
-
         return OrderResource::make($order);
     }
+
 
     public function show(Order $order)
     {

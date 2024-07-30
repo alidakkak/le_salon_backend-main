@@ -16,13 +16,17 @@ class MealResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'name' => $this->name,
-            'name_ar' => $this->name_ar,
-            'description' => $this->description,
-            'description_ar' => $this->description_ar,
+            'name' => [
+                'ar' => $this->name_ar,
+                'en' => $this->name
+            ],
+            'description' => [
+                'ar' => $this->description_ar,
+                'en' => $this->description
+            ],
             'image' => url($this->image),
             'price' => $this->price,
-            'optionals' => OptionResource::collection($this->optionals)
+            'optionalIngredients' => OptionResource::collection($this->optionals)
         ];
     }
 }

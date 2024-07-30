@@ -15,4 +15,8 @@ class OrderItem extends Model
     {
         return $this->belongsTo(Meal::class);
     }
+
+//    public function orderItems() {
+//        return $this->belongsToMany(Optional::class, 'orderitem_optionals' , 'order_item_id' , 'optional_id');
+//    }
 }
