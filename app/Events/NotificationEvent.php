@@ -17,9 +17,12 @@ class NotificationEvent implements ShouldBroadcast
      */
     public $notification;
 
-    public function __construct($notification)
+    public $order;
+
+    public function __construct($notification , $order)
     {
         $this->notification = $notification;
+        $this->order = $order;
     }
 
     /**
@@ -41,7 +44,7 @@ class NotificationEvent implements ShouldBroadcast
     {
         return [
             'notification' => $this->notification,
-            'order' => OrderResource::make(),
+            'order' => OrderResource::make($this->order),
         ];
     }
 }

@@ -109,7 +109,7 @@ class OrderController extends Controller
             'order_id' => $order->id,
         ]);
 
-        event(new NotificationEvent($notification));
+        event(new NotificationEvent($notification ,$order ));
         return OrderResource::make($order);
     }
 
