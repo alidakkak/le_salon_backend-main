@@ -41,12 +41,6 @@ class OrderController extends Controller
 
     public function kitchenOrders()
     {
-        if ($this->isExtraFoundInBody([])) {
-            return $this->ExtraResponse();
-        }
-        if ($this->isParamsFoundInRequest()) {
-            return $this->CheckerResponse();
-        }
         $orders = Order::where('order_state', OrderStates::KITCHEN_ORDER)->get();
 
         return OrderResource::collection($orders);
@@ -114,6 +108,8 @@ class OrderController extends Controller
             'type' => NotificationType::NEWORDER,
             'order_id' => $order->id,
         ]);
+
+        event(new NotificationEvent($notification));
         return OrderResource::make($order);
     }
 
