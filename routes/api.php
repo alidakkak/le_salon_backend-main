@@ -56,7 +56,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/statistics', [StatisticsController::class, 'index']);
     Route::get('/orders/{order}', [OrderController::class, 'show']);
     Route::get('/orders', [OrderController::class, 'index']);
-    Route::patch('/order-to-runner/{order}', [OrderController::class, 'moveToRunner']);
+    Route::patch('/acceptOrder/{order}', [OrderController::class, 'acceptOrder']);
+    Route::patch('/rejectOrder/{order}', [OrderController::class, 'rejectOrder']);
     Route::patch('/order-to-casher/{order}', [OrderController::class, 'moveToCasher']);
     Route::delete('/orders/{order}', [OrderController::class, 'destroy']);
     Route::get('/kitchen-orders', [OrderController::class, 'kitchenOrders']);

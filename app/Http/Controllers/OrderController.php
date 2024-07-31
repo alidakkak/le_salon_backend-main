@@ -149,29 +149,32 @@ class OrderController extends Controller
         return $this->success(null, 'order deleted successfully');
     }
 
-    public function moveToRunner(Order $order)
+    public function acceptOrder(Order $order)
     {
-        if ($this->isExtraFoundInBody([])) {
-            return $this->ExtraResponse();
-        }
-        if ($this->isParamsFoundInRequest()) {
-            return $this->CheckerResponse();
-        }
         $order->update([
-            'order_state' => OrderStates::RUNNER_ORDER,
+            'order_state' => OrderStates::Accepted,
         ]);
 
-        $table = Table::where('id', $order->table_id)->first();
-        $notification = Notification::create([
-            'notification' => 'order number '.$order->id.' belongs to table number '.$table->id.'came to runner',
-            'type' => NotificationType::TORUNNER,
-            'order_id' => $order->id,
-            'order' => $order,
+//        $table = Table::where('id', $order->table_id)->first();
+//        $notification = Notification::create([
+//            'notification' => 'order number '.$order->id.' belongs to table number '.$table->id.'came to runner',
+//            'type' => NotificationType::TORUNNER,
+//            'order_id' => $order->id,
+//            'order' => $order,
+//        ]);
+
+//        event(new NotificationEvent($notification));
+
+        return $this->success($order, 'order accepted successfully');
+    }
+
+    public function rejectOrder(Order $order)
+    {
+        $order->update([
+            'order_state' => OrderStates::rejected,
         ]);
 
-        event(new NotificationEvent($notification));
-
-        return $this->success($order, 'order updated successfully');
+        return $this->success($order, 'order rejected successfully');
     }
 
     public function moveToCasher(MoveOrderToCasherRequest $request, Order $order)
