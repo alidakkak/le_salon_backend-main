@@ -16,6 +16,7 @@ use App\Models\Table;
 use App\SecurityChecker\Checker;
 use App\Types\NotificationType;
 use App\Types\OrderStates;
+use Illuminate\Http\Request;
 
 class OrderController extends Controller
 {
@@ -145,10 +146,10 @@ class OrderController extends Controller
         return $this->success(null, 'order deleted successfully');
     }
 
-    public function acceptOrder(Order $order)
+    public function acceptOrder(Request $request , Order $order)
     {
         $order->update([
-            'order_state' => OrderStates::Accepted,
+            'order_state' => $request->get('status'),
         ]);
 
 //        $table = Table::where('id', $order->table_id)->first();
