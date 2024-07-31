@@ -24,7 +24,7 @@ class MealResource extends JsonResource
                 'ar' => $this->description_ar,
                 'en' => $this->description
             ],
-            'image' => url($this->image),
+            'image' => asset($this->image),
             'price' => $this->price,
             'optionalIngredients' => OptionResource::collection($this->optionals)
         ];
