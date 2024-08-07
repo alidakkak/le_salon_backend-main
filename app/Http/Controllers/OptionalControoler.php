@@ -32,53 +32,8 @@ class OptionalControoler extends Controller
         }
     }
 
-    public function update(UpdateFAQRequest $request, $Id)
-    {
-        try {
-            $option = Optional::find($Id);
-            if (! $option) {
-                return response()->json(['message' => 'Not Found'], 404);
-            }
-            $option->update($request->all());
-
-            return response()->json([
-                'message' => 'Updated SuccessFully',
-            ]);
-        } catch (\Exception $e) {
-            return response()->json([
-                'message' => 'An error occurred',
-                'error' => $e->getMessage(),
-            ], 500);
-        }
-    }
-
-    public function show($Id)
-    {
-        $option = Option::find($Id);
-        if (! $option) {
-            return response()->json(['message' => 'Not found'], 404);
-        }
-
-        return OptionResource::make($option);
-    }
-
-    public function delete($Id)
-    {
-        try {
-            $option = Option::find($Id);
-            if (! $option) {
-                return response()->json(['message' => 'Not Found'], 404);
-            }
-            $option->delete();
-
-            return response()->json([
-                'message' => 'Deleted SuccessFully',
-            ]);
-        } catch (\Exception $e) {
-            return response()->json([
-                'message' => 'An error occurred',
-                'error' => $e->getMessage(),
-            ], 500);
-        }
+    public function delete(Optional $optional){
+        $optional->delete();
+        return OptionResource::make($optional);
     }
 }

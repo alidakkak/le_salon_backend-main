@@ -92,4 +92,5 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
     /// Optional
     Route::post('/optionals', [OptionalControoler::class, 'store']);
+    Route::delete('/optionals/{optional}', [OptionalControoler::class, 'delete']);
 });
