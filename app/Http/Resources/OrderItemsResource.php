@@ -19,9 +19,9 @@ class OrderItemsResource extends JsonResource
             'order_id' => $this->order_id,
             'total' => $this->total,
             'meal_id' => $this->meal_id,
-            'meal' => MealResource::make($this->meal),
             'note' => $this->note,
             'quantity' => $this->quantity,
+            'meal' => MealResource::make($this->meal),
         ];
     }
 }
