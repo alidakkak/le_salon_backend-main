@@ -22,6 +22,7 @@ class OrderItemsResource extends JsonResource
             'note' => $this->note,
             'quantity' => $this->quantity,
             'meal' => MealResource::make($this->meal),
+            'optionalIngredients' => OptionResource::collection($this->optional),
         ];
     }
 }

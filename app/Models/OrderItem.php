@@ -19,4 +19,5 @@ class OrderItem extends Model
     public function optional() {
         return $this->belongsToMany(Optional::class, 'orderitem_optionals' , 'order_item_id' , 'optional_id');
     }
+
 }

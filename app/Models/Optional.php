@@ -16,8 +16,7 @@ class Optional extends Model
         return $this->belongsTo(Meal::class);
     }
 
-    public function orderItems() {
-        return $this->belongsToMany(OrderItem::class, 'orderitem_optionals', 'optional_id', 'order_item_id');
+    public function optionalIngredients() {
+        return $this->belongsToMany(Optional::class, 'orderitem_optionals' , 'order_item_id' , 'optional_id');
     }
-
 }

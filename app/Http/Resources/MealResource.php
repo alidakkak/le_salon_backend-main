@@ -27,7 +27,6 @@ class MealResource extends JsonResource
                 ],
                 'image' => asset($this->image),
                 'price' => $this->price,
-                'optionalIngredients' => OptionResource::collection($this->optionals)
             ];
         }
         return [
