@@ -19,12 +19,6 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        if ($this->isExtraFoundInBody([])) {
-            return $this->ExtraResponse();
-        }
-        if ($this->isParamsFoundInRequest()) {
-            return $this->CheckerResponse();
-        }
         $meals = Category::all();
 
         return CategoryResource::collection($meals);
@@ -65,12 +59,6 @@ class CategoryController extends Controller
      */
     public function update(UpdateCategoryRequest $request, Category $category)
     {
-        if ($this->isExtraFoundInBody(['name', 'image'])) {
-            return $this->ExtraResponse();
-        }
-        if ($this->isParamsFoundInRequest()) {
-            return $this->CheckerResponse();
-        }
         try {
             $category->update($request->all());
 

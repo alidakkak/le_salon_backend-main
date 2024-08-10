@@ -28,14 +28,7 @@ class OrderController extends Controller
      */
     public function index()
     {
-        if ($this->isExtraFoundInBody([])) {
-            return $this->ExtraResponse();
-        }
-        if ($this->isParamsFoundInRequest()) {
-            return $this->CheckerResponse();
-        }
-
-        $orders = Order::all();
+        $orders = Order::orderBy('created_at' , 'desc')->get();
 
         return OrderResource::collection($orders);
     }

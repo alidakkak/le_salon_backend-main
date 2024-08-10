@@ -32,6 +32,7 @@ class MealResource extends JsonResource
         }
         return [
             'id' => $this->id,
+            'category_id' => $this->category->id,
             'name' => [
                 'ar' => $this->name_ar,
                 'en' => $this->name
